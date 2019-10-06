@@ -13,7 +13,7 @@ NGINX reverse proxies HTTP/80 to. A systemd unit for Puma is provided to ensure 
 Puma if there is a failure.  The Puma config, NGINX config and Puma systemd unit file are found in
 the `./packer` subdirectory. The AMI is configured using a small POSIX shell script.
 
-# AWS Infrastructure
+## AWS Infrastructure
 - The AMI containing the application.
 - A SSH keypair.
 - A VPC.
@@ -34,7 +34,10 @@ the `./packer` subdirectory. The AMI is configured using a small POSIX shell scr
   [here](https://www.joshdurbin.net/posts/2018-05-auto-scaling-rollout-on-aws-with-terraform/) for
   more information about this.
 
-TODO diagram
+## AWS Infrastructure Diagram
+Note: While the diagram shows servers in both AZs, there will only be a single server in one AZ
+or the other with the current autoscaling settings.
+![diagram](/images/diagram.png)
 
 # Usage
 
