@@ -234,10 +234,6 @@ resource "aws_lb" "alb" {
   subnets                    = aws_subnet.subnets.*.id
   enable_deletion_protection = false
 
-  lifecycle {
-    prevent_destroy = true
-  }
-
   tags = merge(
     var.default_tags,
     {

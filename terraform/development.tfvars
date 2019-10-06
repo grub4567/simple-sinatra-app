@@ -14,7 +14,7 @@ default_tags = {
 http_ingress_ip_whitelist = ["0.0.0.0/0"]
 
 # Name of the default SSH key added to all instances
-ssh_key_name = "luther"
+ssh_key_name = "packer"
 
 # Path to the public SSH key added to instances
 ssh_public_key_path = "~/.ssh/id_rsa.pub"
