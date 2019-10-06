@@ -95,6 +95,16 @@ resource "aws_security_group" "instance_security_group" {
   )
 }
 
+data "http" "ip" {
+  url = "http://api.ipify.org"
+}
+
+locals {
+  host_ip_cidr              = ["${data.http.ip.body}/32"]
+  ssh_ingress_ip_whitelist  = "${length(var.ssh_ingress_ip_whitelist) != 0 ? var.ssh_ingress_ip_whitelist : local.host_ip_cidr}"
+  icmp_ingress_ip_whitelist = "${length(var.icmp_ingress_ip_whitelist) != 0 ? var.icmp_ingress_ip_whitelist : local.host_ip_cidr}"
+}
+
 # Allow all egress.
 resource "aws_security_group_rule" "all_egress" {
   type              = "egress"
@@ -121,7 +131,7 @@ resource "aws_security_group_rule" "ssh_ingress" {
   from_port         = 22
   to_port           = 22
   protocol          = "TCP"
-  cidr_blocks       = var.ssh_ingress_ip_whitelist
+  cidr_blocks       = local.ssh_ingress_ip_whitelist
   security_group_id = aws_security_group.instance_security_group.id
 }
 
@@ -131,7 +141,7 @@ resource "aws_security_group_rule" "echo_ingress" {
   from_port         = 8
   to_port           = 0
   protocol          = "ICMP"
-  cidr_blocks       = var.icmp_ingress_ip_whitelist
+  cidr_blocks       = local.icmp_ingress_ip_whitelist
   security_group_id = aws_security_group.instance_security_group.id
 }
 
@@ -141,7 +151,7 @@ resource "aws_security_group_rule" "echo_reply_ingress" {
   from_port         = 0
   to_port           = 0
   protocol          = "ICMP"
-  cidr_blocks       = var.icmp_ingress_ip_whitelist
+  cidr_blocks       = local.icmp_ingress_ip_whitelist
   security_group_id = aws_security_group.instance_security_group.id
 }
 
@@ -151,7 +161,7 @@ resource "aws_security_group_rule" "destination_unreachable_ingress" {
   from_port         = 3
   to_port           = 0
   protocol          = "ICMP"
-  cidr_blocks       = var.icmp_ingress_ip_whitelist
+  cidr_blocks       = local.icmp_ingress_ip_whitelist
   security_group_id = aws_security_group.instance_security_group.id
 }
 
@@ -161,7 +171,7 @@ resource "aws_security_group_rule" "time_exceeded_ingress" {
   from_port         = 11
   to_port           = 0
   protocol          = "ICMP"
-  cidr_blocks       = var.icmp_ingress_ip_whitelist
+  cidr_blocks       = local.icmp_ingress_ip_whitelist
   security_group_id = aws_security_group.instance_security_group.id
 }
 

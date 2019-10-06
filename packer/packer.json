@@ -12,7 +12,7 @@
       "type": "amazon-ebs",
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
-      "temporary_security_group_source_cidrs": ["{{user `ip_cidr`}}"],
+      "temporary_security_group_source_cidrs": ["{{user `host_ip`}}/32"],
       "region": "ap-southeast-2",
       "instance_type": "t2.micro",
       "ssh_username": "ubuntu",

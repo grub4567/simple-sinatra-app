@@ -10,12 +10,6 @@ default_tags = {
   Environment = "development"
 }
 
-# Whitelist of subnets to allow SSH access from
-ssh_ingress_ip_whitelist = ["49.184.199.18/32"]
-
-# Whitelist of subnets to allow ICMP messages from
-icmp_ingress_ip_whitelist = ["49.184.199.18/32"]
-
 # Whitelist of subnets to allow HTTP requests from
 http_ingress_ip_whitelist = ["0.0.0.0/0"]
 

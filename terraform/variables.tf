@@ -16,13 +16,15 @@ variable default_tags {
 }
 
 variable ssh_ingress_ip_whitelist {
-  description = "Whitelist of subnets to allow SSH access from"
+  description = "Whitelist of subnets to allow SSH access from, defaults to empty which causes the host IP to be used"
   type        = "list"
+  default     = []
 }
 
 variable icmp_ingress_ip_whitelist {
-  description = "Whitelist of subnets to allow ICMP messages from"
+  description = "Whitelist of subnets to allow ICMP messages from, defaults to empty which causes the host IP to be used"
   type        = "list"
+  default     = []
 }
 
 variable http_ingress_ip_whitelist {

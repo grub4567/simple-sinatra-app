@@ -1,15 +1,12 @@
 #
 
-environment ?= development
-
 .PHONY: main
 main: build
 
 .PHONY: build
 build:
 	packer build \
-		-on-error=cleanup \
-		-var-file=$(environment).json \
+		-var=host_ip=$(shell curl --silent api.ipify.org) \
 		-force \
 		packer.json \
 		| tee output
